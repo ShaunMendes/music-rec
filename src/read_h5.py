@@ -12,6 +12,7 @@ import tables
 import glob
 import pandas as pd
 import numpy as np
+import json
 
 
 # Progress bar for cli
