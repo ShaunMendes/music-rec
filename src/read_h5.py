@@ -26,7 +26,7 @@ def progress(count, total, suffix=''):
 
 # Get list of all h5 files in basedir
 def get_all_files(basedir, ext='.h5'):
-    print('Getting list of all h5 files in',basedir)
+    print('Getting list of all h5 files in', basedir)
     allfiles = []
     for root, dirs, files in os.walk(basedir):
         files = glob.glob(os.path.join(root, '*'+ext))
@@ -53,17 +53,17 @@ def extract_song_data(files):
         # Walk nodes under root
         for item in s_hdf.root._f_walknodes():
             # Get name for column
-            name = item._v_pathname[1:].replace('/','_')
+            name = item._v_pathname[1:].replace('/', '_')
             # Store arrays
             if type(item) is tables.earray.EArray:
                 data[name] = [np.array(item)]
             # Store tables
             elif type(item) is tables.table.Table:
                 # Get all columns
-                cols =  item.coldescrs.keys()
+                cols = item.coldescrs.keys()
                 for row in item:
                     for col in cols:
-                        col_name = '_'.join([name,col])
+                        col_name = '_'.join([name, col])
                         try:
                             data[col_name] = row[col]
                         except Exception as e:
@@ -78,7 +78,7 @@ def extract_song_data(files):
     # df = df[['metadata_songs_artist_id','metadata_songs_title','musicbrainz_songs_year','metadata_artist_terms','analysis_songs_analysis_sample_rate','metadata_songs_artist_location','analysis_sections_confidence','analysis_sections_start','analysis_segments_start','analysis_segments_timbre','analysis_segments_pitches','analysis_songs_tempo','analysis_bars_confidence','analysis_bars_start','analysis_beats_confidence','analysis_beats_start','analysis_songs_duration','analysis_songs_energy','analysis_songs_key','analysis_songs_key_confidence','analysis_songs_time_signature','analysis_songs_time_signature_confidence','metadata_similar_artists']]
 
     # Drop bad columns
-    df.drop(['musicbrainz_artist_mbtags_count','musicbrainz_artist_mbtags',
+    df.drop(['musicbrainz_artist_mbtags_count', 'musicbrainz_artist_mbtags',
              'musicbrainz_songs_idx_artist_mbtags'], inplace=True, axis=1)
 
     return df
@@ -103,14 +103,15 @@ def get_song_file_map(files):
         # Close store for reading
         s_hdf.close()
 
-    with open('./data/song-file-map.json', 'w') as file:
+    with open('../../song-file-map.json', 'w+') as file:
         json.dump(songmap, file, sort_keys=True, indent=2)
 
     return songmap
 
 
 def get_user_taste_data(filename):
-    tasteDF = pd.read_csv('./TasteProfile/train_triplets_SAMPLE.txt', sep='\t', header=None, names={'user,song,count'})
+    tasteDF = pd.read_csv('./TasteProfile/train_triplets_SAMPLE.txt',
+                          sep='\t', header=None, names={'user,song,count'})
 
     return tasteDF
 

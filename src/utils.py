@@ -24,23 +24,24 @@ def model_check(X, y_map, n, df, model):
 
 def save_lookup_file(df):
 
-    lookupDF = df[['metadata_songs_song_id','metadata_songs_artist_id','metadata_songs_title','metadata_songs_artist_name','musicbrainz_songs_year','metadata_songs_release']]
+    lookupDF = df[['metadata_songs_song_id', 'metadata_songs_artist_id', 'metadata_songs_title',
+                   'metadata_songs_artist_name', 'musicbrainz_songs_year', 'metadata_songs_release']]
 
     convert_to_byte_data(lookupDF)
 
     lookupDF.to_hdf('./frontend/data/lookup.h5', key='df', mode='w')
 
     pd.read_hdf('./frontend/data/lookup.h5', 'df')
-         
+
 
 def setup_model_dir():
-	t = time.time()
-	dt = datetime.datetime.fromtimestamp(t).strftime('%Y%m%d%H%M%S')
-	path = './model/' + dt
-	os.mkdir(path)
-	os.mkdir(path + '/preprocessing')
+    t = time.time()
+    dt = datetime.datetime.fromtimestamp(t).strftime('%Y%m%d%H%M%S')
+    path = './model/' + dt
+    os.mkdir(path)
+    os.mkdir(path + '/preprocessing')
 
-	return path
+    return path
 
 
 def arg_parser():

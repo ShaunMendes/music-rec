@@ -42,7 +42,7 @@ def load_model():
     graph = tf.get_default_graph()
 
     # Load preprocessing dependencies
-    with open('./data/song-file-map.json', 'r') as f:
+    with open('../../song-file-map.json', 'r') as f:
         song_file_map = json.load(f)
     with open('./model/working/preprocessing/maps.json', 'r') as f:
         column_maps = json.load(f)
@@ -55,7 +55,7 @@ def load_model():
     lookupDF = pd.read_hdf('./frontend/data/lookup.h5', 'df')
 
     # Model predictions for comparison
-    probDF = pd.read_pickle('./data/model_prob.pkl')
+    probDF = pd.read_pickle('../../model_prob.pkl')
 
 
 def process_metadata_list(col):
@@ -117,8 +117,8 @@ def get_recs(song_ids):
 
     model_prob = probDF[probDF.columns[:-1]].values
 
-    rec_ids = [probDF.iloc[np.argmin(np.min(np.sqrt((pred - model_prob)**2),axis=1))].id
-                for pred in predictions]
+    rec_ids = [probDF.iloc[np.argmin(np.min(np.sqrt((pred - model_prob)**2), axis=1))].id
+               for pred in predictions]
 
     recs = lookupDF.loc[lookupDF.metadata_songs_song_id.isin(
         rec_ids)].to_dict('records')
