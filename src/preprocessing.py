@@ -12,7 +12,7 @@ import numpy as np
 import genre_splitter as gs
 from collections import Counter
 from sklearn.preprocessing import MinMaxScaler, RobustScaler
-from sklearn.externals import joblib
+import joblib
 
 
 # Globals

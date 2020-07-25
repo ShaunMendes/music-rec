@@ -12,7 +12,7 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import flask
-from sklearn.externals import joblib
+import joblib
 
 # custom module imports
 # import predict
