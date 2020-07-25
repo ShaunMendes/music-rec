@@ -52,7 +52,7 @@ def arg_parser():
     parser.add_argument('-s', '--size', default=10000, type=int, nargs='?',
                         help='the number of files to use for training')
     # add iterations int
-    parser.add_argument('-i', '--initialize', default=False, type=bool, nargs='?',
+    parser.add_argument('-i', '--initialize', default=True, type=bool, nargs='?',
                         help='flag to run initial setup for web app')
     # parse args and return
     args = parser.parse_args()
